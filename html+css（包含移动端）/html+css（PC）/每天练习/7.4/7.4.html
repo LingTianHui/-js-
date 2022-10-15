@@ -1,0 +1,93 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>box-sizing属性解决方案</title>
+    <style>
+        div {
+            /* box-sizing: border-box; */
+            width: 500px;
+            height: 500px;
+            background-color: #000;
+            border-color: #fff;
+            border-width: 10px;
+            border-style: dotted;
+            padding: 50px 0;
+            box-shadow: 20px 20px 20px 10px red inset;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+
+    </div>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>float</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 50px;
+            height: 50px;
+        }
+
+        .four,
+        .three,
+        .two {
+            float: left;
+        }
+
+        .one {
+            background-color: #999;
+            /* display: inline-block; */
+        }
+
+        .two {
+            background-color: #090;
+        }
+
+        .three {
+            background-color: #909;
+        }
+
+        .four {
+            background-color: #099;
+        }
+
+        .four,
+        .three,
+        .two {
+            float: left;
+        }
+
+        body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="one"></div>
+    <div class="two"></div>
+    <div class="three"></div>
+    <div class="four"></div>
+</body>
+
+</html>

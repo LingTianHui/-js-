@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>emmet语法快速生成html标签和样式</title>
+    <style>
+        .one {
+            text-align: center;
+            /* text-align: center; */
+            text-indent: 2em;
+            width: 100px;
+            height: 200px;
+            text-indent: 2em;
+            line-height: 26px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <table></table>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <p></p>
+    <p></p>
+    <p></p>
+    <p></p>
+    <ul>
+        <li></li>
+    </ul>
+    <div><span></span></div>
+
+    <div></div>
+    <p></p>
+    <div class="nav"></div>
+    <div class="nav"></div>
+    <div id="banner"></div>
+    <p class="one"></p>
+    <span class="gray"></span>
+    <ul>
+        <li id="two"></li>
+    </ul>
+    <div class="demo"></div>
+    <!-- .demo$*5 -->
+    <div class="demo1"></div>
+    <div class="demo2"></div>
+    <div class="demo3"></div>
+    <div class="demo4"></div>
+    <div class="demo5"></div>
+    <div class="demo1"></div>
+    <div class="demo2"></div>
+    <div class="demo3"></div>
+    <div class="demo4"></div>
+    <div class="demo5"></div>
+    <!-- 我们想生成的标签里面默认显示几个文字  div{文字}-->
+    <div>pink老师不是gay</div>
+    <div>我不喜欢男人</div>
+    <div>我不喜欢男人</div>
+    <div>我不喜欢男人</div>
+    <div>我不喜欢男人</div>
+    <div>我不喜欢男人</div>
+    <!-- div{$}*5 -->
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+</body>
+
+</html>
+
+<!-- 具体实例 -->
+<!-- 父子关系 ul中有三个li,ul>li*3+tab  -->
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<table>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<!-- 兄弟关系 要同时生成一个div以及一个P，div+p+tab -->
+<div></div>
+<p></p>
+<!-- 兄弟关系和父子关系联合 table>(thead>tr>td*6)+tbody-->
+<table>
+    <thead>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+<!-- 自增 div$*5 -->
+<div1></div1>
+<div2></div2>
+<div3></div3>
+<div4></div4>
+<div5></div5>
+<!-- 兄弟关系+父子关系+带类名+自增 table.class>(thead#id>(tr.class#id)*4>(td$*7))+tbody -->
+<table class="class">
+    <thead id="id">
+        <tr class="class" id="id"></tr>
+        <td1></td1>
+        <td2></td2>
+        <td3></td3>
+        <td4></td4>
+        <td5></td5>
+        <td6></td6>
+        <td7></td7>
+        <tr class="class" id="id"></tr>
+        <td1></td1>
+        <td2></td2>
+        <td3></td3>
+        <td4></td4>
+        <td5></td5>
+        <td6></td6>
+        <td7></td7>
+        <tr class="class" id="id"></tr>
+        <td1></td1>
+        <td2></td2>
+        <td3></td3>
+        <td4></td4>
+        <td5></td5>
+        <td6></td6>
+        <td7></td7>
+        <tr class="class" id="id"></tr>
+        <td1></td1>
+        <td2></td2>
+        <td3></td3>
+        <td4></td4>
+        <td5></td5>
+        <td6></td6>
+        <td7></td7>
+    </thead>
+    <tbody></tbody>
+</table>
+<!-- 我们想生成的标签里面默认显示几个文字 div{我是粉丝}-->
+<div>我是粉丝</div>
+<!-- 标签内容数字自增 div{$}*6-->
+<div>1</div>
+<div>2</div>
+<div>3</div>
+<div>4</div>
+<div>5</div>
+<div>6</div>
+
+<!-- css的Emmet语法就是打缩写即可 -->
+
+<!-- 进阶版练习 table.calss>(thead#id>(tr.class#id)*3>td$*6)+tbody.class>tr.class#id>td$*6 -->
+
+<table class="calss">
+    <thead id="id">
+        <tr class="class" id="id"></tr>
+        <td1></td1>
+        <td2></td2>
+        <td3></td3>
+        <td4></td4>
+        <td5></td5>
+        <td6></td6>
+        <tr class="class" id="id"></tr>
+        <td1></td1>
+        <td2></td2>
+        <td3></td3>
+        <td4></td4>
+        <td5></td5>
+        <td6></td6>
+        <tr class="class" id="id"></tr>
+        <td1></td1>
+        <td2></td2>
+        <td3></td3>
+        <td4></td4>
+        <td5></td5>
+        <td6></td6>
+    </thead>
+    <tbody class="class">
+        <tr class="class" id="id">
+            <td1></td1>
+            <td2></td2>
+            <td3></td3>
+            <td4></td4>
+            <td5></td5>
+            <td6></td6>
+        </tr>
+    </tbody>
+</table>

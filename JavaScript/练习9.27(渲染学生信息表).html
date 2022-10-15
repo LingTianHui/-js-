@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 7.5rem;
+            text-align: center;
+        }
+
+        table,
+        th,
+        td {
+            border: .0125rem solid #ccc;
+            border-collapse: collapse;
+        }
+
+        caption {
+            font-size: .225rem;
+            margin-bottom: .125rem;
+            font-weight: 700;
+        }
+
+        tr {
+            height: .5rem;
+            cursor: pointer;
+        }
+
+        table tr:nth-child(1) {
+            background-color: #ddd;
+        }
+
+        table tr:not(:first-child):hover {
+            background-color: #eee;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <h2>学生信息</h2>
+    <p>将数据渲染到页面中...</p>
+
+    <table>
+        <caption>学生列表</caption>
+        <tr>
+            <th>序号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>性别</th>
+            <th>家乡</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>小明</td>
+            <td>18</td>
+            <td>男</td>
+            <td>河北省</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>小明</td>
+            <td>18</td>
+            <td>男</td>
+            <td>河北省</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>小明</td>
+            <td>18</td>
+            <td>男</td>
+            <td>河北省</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>小明</td>
+            <td>18</td>
+            <td>男</td>
+            <td>河北省</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>小明</td>
+            <td>18</td>
+            <td>男</td>
+            <td>河北省</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>小明</td>
+            <td>18</td>
+            <td>男</td>
+            <td>河北省</td>
+        </tr>
+    </table> -->
+
+</body>
+
+<script>
+    // 定义一个存储了若干学生信息的数组
+    let students = [
+        { name: '小明', age: 18, gender: '男', hometown: '河北省' },
+        { name: '小红', age: 19, gender: '女', hometown: '河南省' },
+        { name: '小刚', age: 17, gender: '男', hometown: '山西省' },
+        { name: '小丽', age: 18, gender: '女', hometown: '山东省' },
+        { name: '晓强', age: 18, gender: '女', hometown: '山东省' }
+    ]
+    // let tr = document.querySelector('tr')  ???好像不是这么写的，貌似采用了一种更加简单的方法,首先将整体的框架给展现出来，在使用反引号时是可以解析标签的, 这里这么做的原因是表格的头部是不会改变的，不需要每次都去渲染，直接写死就好
+    document.write(`        
+    <table>
+            <caption>学生列表</caption>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>家乡</th>
+            </tr>`)
+    // 在中间穿插for循环遍历每一个数据，并使用模板字符串将其添加到对应的标签中
+    for (let i = 0; i < students.length; i++) {
+        document.write(`        
+            <tr>
+                <td>${i + 1}</td>
+                <td>${students[i].name}</td>
+                <td>${students[i].age}</td>
+                <td>${students[i].gender}</td>
+                <td>${students[i].hometown}</td>
+            </tr >`)
+    }
+    // 最后由于表格标签是双标签，需要将其关闭，所以需要补一个标签尾，同时证明了双标签的头尾可以分开书写，但是可以被解析到
+    document.write(`</table>`)
+</script>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    let a = function (a, f, f, g, g, g) {
+        // avascrip中每个函数都会有一个Arguments对象实例arguments，它引用着函数的实参，可以用数组下标的方式"[]"引用arguments的元素。这里的数组是实参所构成的数组
+        console.log(arguments)
+        console.log(arguments[0])
+        console.log(arguments[1])
+        console.log(arguments[2])
+        console.log(arguments[3])
+        console.log(arguments[4])
+        // callee 是 arguments 对象的一个属性。它可以用于引用该函数的函数体内当前正在执行的函数。这在函数的名称是未知时很有用，例如在没有名称的函数表达式 (也称为“匿名函数”) 内。常用于阶乘函数中
+        console.log(arguments.callee)
+    }
+    a(4, 1, 2, 3, 4)
+
+
+    // arguments.callee与阶乘的实例
+    function factorial(num) {
+        if (num <= 1) {
+            return 1;
+        } else {
+            return num * factorial(num - 1)
+        }
+    }
+    // 输出120，但问题是这个函数的执行与函数名 factorial 紧紧耦合在了一起。为了消除这种“紧密耦合”的现象，可以像下面这样使用 arguments.callee
+    console.log(factorial(5))
+
+    // 简单来说紧密耦合不利于需要重载函数的情况
+
+    function factorial(num) {
+        if (num <= 1) {
+            return 1;
+        } else {
+            return num * arguments.callee(num - 1);
+        }
+    }
+    // 同样输出120
+    console.log(factorial(5))
+    // 在这个重写后的 factorial()函数的函数体内，没有再引用函数名 factorial。这样，无论引用函数时使用的是什么名字，都可以保证正常完成递归调用。例如
+    function factorial(num) {
+        if (num <= 1) {
+            return 1;
+        } else {
+            return num * arguments.callee(num - 1);
+        }
+    }
+    // 保存了原函数的指针
+    var trueFactorial = factorial;
+    alert(trueFactorial(5));    //120    
+
+
+    factorial = function () {
+        return 0;
+    }
+    alert(trueFactorial(5));// 120 如果没有使用arguments.callee，将返回0
+
+</script>
+
+</html>

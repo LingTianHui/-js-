@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>透视效果</title>
+  <style>
+    body {
+      /* 以下代码为实现透视效果，值一般在800-1200之间，实际意为视距，即眼睛到屏幕的距离 */
+      perspective: 1000px;
+      /* perspective: 200px; */
+      /* perspective: 10000px; */
+    }
+
+    .box {
+      width: 200px;
+      height: 200px;
+      margin: 100px auto;
+      background-color: pink;
+      transition: all 0.5s;
+    }
+
+    .box:hover {
+      /* 对于Z轴的位移，要想观察到要给父级盒子加上perspective属性 */
+      transform: translateZ(200px);
+      /* transform: translateZ(-200px); */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box"></div>
+</body>
+
+</html>

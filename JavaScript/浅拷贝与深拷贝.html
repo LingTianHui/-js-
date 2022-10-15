@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 在学习浅拷贝和深拷贝之前，要先了解常用的数据类型
+    // 基本数据类型：
+    // Number （数字）
+    // String （字符串）
+    // Boloean （布尔值）
+    // Null （空）
+    // Undefined （未定义）
+    // BigInt （可以表示任意大的整数）
+    // Symbol（表示独一无二的值）
+
+    // 引用数据类型：
+    // Array（数组）
+    // Function（函数）
+    // Object（对象）
+    // Date（日期）
+    // RegExp（正则）
+
+    // 我们有四种方法来判断数据类型，分别是typeof，instanceof，constructor，Object.prototype.toString
+    //     typeof： 在基本数据类型（null除外）和Function时，返回其对应类型；对于引用数据类型（Function除外）都返回为object；
+    // instanceof：无法判断基本数据类型；对于引用数据类型（除判断数据类型是否是Objcet类型外）均可；
+    // constructor： 在基本数据类型（null 与 undefined 除外）/引用数据类时，均返回其对应类型；
+    //     Object.prototype.toString： 无论基本数据类型还是引用类型返回其对应类型
+
+    // 在介绍深浅拷贝之前，首先明白，这是对于引用数据类型来说的，然后浅拷贝的数据是会互相影响的，但是深拷贝不会
+
+    // 浅拷贝的实现
+    // （1）展开运算符... 实现浅拷贝
+    (function () {
+        let obj1 = {
+            name: 'Chen',
+            hobby: ['see a film', 'write the code', 'play basketball', 'tourism']
+        }
+        // 展开运算符...，在这里的作用为将一个对象的所有属性复制一份拷贝到新的对象中
+        let obj2 = { ...obj1 };
+        obj2.hobby[1] = 'swim';
+        obj2.hobby[2] = 'alpinism';
+        obj2.name = 'Forever';
+        console.log('obj1===>', obj1); // obj1===> { name: 'Chen',hobby: [ 'see a film', 'swim','alpinism', 'tourism']}
+        // 当拷贝对象只有一层的时候，是深拷贝
+        console.log('obj2===>', obj2); // obj2===> { name: 'Forever',hobby: [ 'see a film', 'swim','alpinism', 'tourism']}
+    })();
+
+    // （2）Object.assign() 实现浅拷贝
+    (function () {
+        let obj3 = {
+            name: 'Chen',
+            hobby: ['see a film', 'write the code', 'play basketball', 'tourism']
+        }
+
+        let obj4 = Object.assign({}, obj3);
+        obj4.hobby[1] = 'swim';
+        obj4.hobby[2] = 'alpinism';
+        obj4.name = 'Forever';
+        console.log('obj3===>', obj3); // obj1===>{ name: 'Chen',hobby: [ 'see a film', 'swim','alpinism', 'tourism'}
+        console.log('obj4===>', obj4); // obj2===> {name: 'Forever', hobby: [ 'see a film', 'swim','alpinism', 'tourism' ]}
+    })();
+
+    // 立即执行函数一定要注意规范的写法，一定要加分号，否则除了第一个之外的立即执行函数是不会执行的
+    // Array.prototype.concat() 实现浅拷贝
+    (function () {
+        let arr1 = [
+            {
+                name: 'Chen'
+            },
+            'see a film',
+            'write the code',
+            'play basketball',
+            'tourism'
+        ];
+        let arr2 = arr1.concat([]);
+        arr2[0].name = 'Forever';
+        arr2[1] = 'play games';
+        // 说明对于{name: 'Chen'}来说，是属于浅拷贝，说明不止一层，导致互相影响了
+        console.log('arr1===>', arr1); // arr1===> [{ name: 'Forever' },'see a film','write the code','play basketball', 'tourism']
+        console.log('arr2===>', arr2); // arr2===> [{ name: 'Forever' },'play games','write the code', 'play basketball', 'tourism']
+    })();
+
+    // Array.prototype.slice() 实现浅拷贝
+    (function () {
+        let arr1 = [
+            {
+                name: 'Chen'
+            },
+            'see a film',
+            'write the code',
+            'play basketball',
+            'tourism'
+        ];
+        let arr2 = arr1.slice();
+        arr2[0].name = 'Forever';
+        arr2[1] = 'play games';
+        console.log('arr1===>', arr1); // arr1===> [{ name: 'Forever' },'see a film','write the code','play basketball', 'tourism']
+        console.log('arr2===>', arr2); // arr2===> [{ name: 'Forever' },'play games','write the code', 'play basketball', 'tourism']
+    })();
+
+    // 接下里将要学习的是深拷贝的相关方法
+    // 最常见的一种：JSON.parse(JSON.stringify())
+    (function () {
+        //  JSON.parse(JSON.stringify())实现深拷贝Object
+        let obj1 = {
+            name: 'Chen',
+            hobby: ['see a film', 'write the code', 'play basketball', 'tourism']
+        }
+        let obj2 = JSON.parse(JSON.stringify(obj1));
+        console.log(obj1 === obj2); // false
+        obj2.name = 'Forever';
+        obj2.hobby[1] = 'swim';
+        obj2.hobby[2] = 'alpinism';
+
+        console.log('obj1===>', obj1); // obj1===> { name: 'Chen',hobby: ['see a film', 'write the code', 'play basketball', 'tourism']}
+        console.log('obj2===>', obj2); // obj2===> { name: 'Forever',hobby: ['see a film', 'swim', 'alpinism', 'tourism']}
+    })();
+
+    // 下面的方法是手写递归方法，实现深度克隆原理，遍历对象/数组，知道里面只有基本数据类型，然后复制，这就是深拷贝的原理
+    (function () {
+        // 检测数据类型的功能函数
+        const checkedType = (target) => Object.prototype.toString.call(target).replace(/\[object (\w+)\]/, "$1").toLowerCase();
+        // 实现深拷贝（Object/Array）
+        const clone = (target) => {
+            let result;
+            let type = checkedType(target);
+            if (type === 'object') result = {};
+            else if (type === 'array') result = [];
+            else return target;
+            for (let key in target) {
+                if (checkedType(target[key]) === 'object' || checkedType(target[key]) === 'array') {
+                    result[key] = clone(target[key]);
+                } else {
+                    result[key] = target[key];
+                }
+            }
+            return result;
+        }
+        const obj = {
+            name: 'Chen',
+            detail: {
+                age: '18',
+                height: '180',
+                bodyWeight: '68'
+            },
+            hobby: ['see a film', 'write the code', 'play basketball', 'tourism']
+        }
+
+        const obj1 = clone(obj);
+        console.log(obj1); // { name: 'Chen',detail: { age: '18', height: '180', bodyWeight: '68' },  hobby: [ 'see a film', 'write the code', 'play basketball', 'tourism' ]}
+        console.log(obj1 === obj); // false
+    })();
+
+</script>
+
+</html>

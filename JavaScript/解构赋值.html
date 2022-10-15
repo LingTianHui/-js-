@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 嵌套对象的解构赋值,注意是{}
+    const student = {
+        name: 'jsPool',
+        age: 20,
+        scores: {
+            math: 95,
+            chinese: 98,
+            english: 93
+        }
+    }
+    // 嵌套对象的分层解构，分为两步
+    function showScore1(student) {
+        const { name, scores } = student;
+        const { chinese, english, math } = scores
+        console.log('学生名:' + name);
+        console.log(scores)
+        console.log('数学成绩:' + math);
+        console.log('语文成绩:' + chinese);
+        console.log('英语成绩:' + english);
+    }
+    showScore1(student)
+
+    // 嵌套对象的分层解构，一步完成版
+    function showScore(student) {
+        // 类似与math=0的赋值操作是相当与对变量赋予初始值一面产生undefined的错误
+        // const { name, scores: { math = 0, chinese = 0, english = 0 } } = student;
+        // 正常
+        const { name, scores: { math, chinese, english } } = student;
+        console.log('学生名:' + name);
+        console.log('数学成绩:' + math);
+        console.log('语文成绩:' + chinese);
+        console.log('英语成绩:' + english);
+    }
+    showScore(student)
+
+    // 嵌套数组的解构赋值,注意是[]
+    // 与对象相似在原有的数组结构模式中插入另一个数组解构模式,可以将解构过程深入到下一级
+    let colors = ['red', ['green', 'yellow'], 'blue'];
+    let [firstColor, [secondColor]] = colors;
+    console.log(firstColor, secondColor); // red , green
+
+    // 不定元素
+    // 在数组中，可以通过...语法将数组中的其余元素赋值给一个特定的变量
+    let colors1 = ['red', 'green', 'blue'];
+    let [firstColor1, ...otherColors] = colors1;
+    console.log(firstColor1);  // red
+    console.log(otherColors); // ['green','blue'],这是一个数组
+    console.log(...otherColors); // green blue,这是两个字符串
+
+
+    // 混合结构
+    let node = {
+        name: 'foo',
+        loc: {
+            start: {
+                line: 1,
+                column: 1
+            }
+        },
+        range: [0, 3]
+    }
+    // 混合解构的体现
+    // 不管是对于数组还是对象,不管数据类型是否嵌套,都遵循变量与元素一一对应的关系,但是其中也还有一些不同
+    // 数组的一一对应是指变量与元素在位置上的一一对应
+    // 对象的一一对应是指变量与元素在名字上的一一对应
+    let {
+        loc: { start: { line } },
+        range: [startIndex]
+    } = node;
+    console.log(line);       // 1
+    console.log(startIndex); // 0
+</script>
+
+</html>

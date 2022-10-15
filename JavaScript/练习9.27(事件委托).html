@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>我是第1个小li<span>X</span></li>
+        <li>我是第2个小li<span>X</span></li>
+        <li>我是第3个小li<span>X</span></li>
+        <li>我是第4个小li<span>X</span></li>
+        <li>我是第5个小li<span>X</span></li>
+    </ul>
+    <script>
+        // 不要每个小li注册事件了  而是把事件委托给他的爸爸 
+        // 事件委托是给父级添加事件 而不是孩子添加事件
+        let ul = document.querySelector('ul')
+        let span = document.querySelector('span')
+        ul.addEventListener('click', function (e) {
+            // alert('我点击了')
+
+            // 得到当前的元素的内容
+            // console.log((e.target).innerHTML)
+
+            // 点击li，那么每点一次，ul中的li就会消失一个，并且是按li次序依次消失
+            // (e.target).parentNode.removeChild(this.children[0])
+
+            // 点谁谁消失
+            // ul.removeChild(e.target)
+
+            // 点击X使其删除掉对应的li，本来想通过获取index来做到，但是网上的方法基本上还是要获取元素，就采用这个简便但是存在致命性错误的方法了（接下来将结合if语句来完成比较健全合理的方法）
+            // ul.removeChild(e.target.parentNode)
+
+            // 输出所获取标签名的小写
+            console.log(e.target.tagName.toLowerCase())
+            // 使用if语句，在条件成立时执行删除操作，同时注意，三等号后跟的是字符串，需要加引号
+            if (e.target.tagName.toLowerCase() === "span") {
+                ul.removeChild(e.target.parentNode)
+            }
+            // e.target.style.color = 'red' 
+        })
+    </script>
+</body>
+
+</html>

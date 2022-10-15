@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 情景：有一个页面来显示好友列表，如果好友数非常多，那么同时加载好友信息会非常消耗浏览器性能，那么改变一下思路，将一秒钟加载1000个改为每个200毫秒加载8个，用以提高性能
+
+
+    //数组分块是一种使用定时器分割循环的技术，为要处理的项目创建一个队列，然后使用定时器取出下一个要处理的项目进行处理，接着再设置另一个定时器
+
+    //在数组分块模式中，array变量本质上就是一个“待办事宜”列表，它包含了要处理的项目。如果在队列中还有其他项目，则设置另一个定时器，并通过arguments.callee（指函数名）调用同一个匿名函数
+    var timeChunk = function (ary, fn, count) {
+        var obj, t;
+        var len = ary.length;
+        var start = function () {
+            // count表示每一批创建的节点数量。Math.min(count || 1, ary.length)意为取得两者中的最小值，意思就是说完成代码count如果为0 就用1代替，并与arr.length比较大小，超过count则分块，否则就按数组长度来
+            for (var i = 0; i < Math.min(count || 1, ary.length); i++) {
+                //使用shift()方法作用是移除数组的第一项，是一个没有参数的方法
+                var obj = ary.shift();
+                // fn封装了创建节点逻辑的函数
+                fn(obj);
+            }
+        };
+        return function () {
+            t = setInterval(function () {
+                // 与上文的shift（）方法相呼应
+                if (ary.length === 0) { // 如果全部节点都已经被创建好
+                    return clearInterval(t);
+                }
+                start();
+            }, 200);    // 分批执行的时间间隔，也可以用参数的形式传入
+        };
+    };
+</script>
+
+</html>

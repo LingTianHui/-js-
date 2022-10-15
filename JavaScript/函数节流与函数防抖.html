@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        margin: 0;
+    }
+
+    .show {
+        width: 260px;
+        height: 100px;
+        font-size: 20px;
+        text-align: center;
+        line-height: 100px;
+        background: lightgreen;
+    }
+</style>
+
+<body>
+    <div class="show" id="show">0</div>
+</body>
+<script>
+    // 函数防抖，字面上来说，是利用函数来防止抖动。在执行触发事件的情况下，元素的位置或尺寸属性快速地发生变化，造成页面回流，出现元素抖动的现象。通过函数防抖，使得元素的位置或尺寸属性延迟变化，从而减少页面回流简单的防抖函数代码如下，该函数接受2个参数，第一个参数为需要被延迟执行的函数，第二个参数为延迟执行的时间
+    let count = 0
+    const oShow = document.getElementById('show')
+    const changeValue = () => { oShow.innerHTML = count++ }
+    const debounce = (fn, wait = 30) => {
+        return () => {
+            clearTimeout(fn.timer)
+            fn.timer = setTimeout(fn, wait)
+        }
+    }
+    oShow.addEventListener('mousemove', debounce(changeValue))
+</script>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            display: flex;
+            height: 400px;
+            width: 500px;
+            background-color: pink;
+            /* flex-direction: column; */
+            /* 主轴中元素的对齐方式 */
+            /* justify-content: space-between; */
+            /* justify-content: space-around */
+            /* justify-content: space-between; */
+            /* 按侧轴来对齐 */
+            /* align-items: center; */
+            /* 使得元素自动换行 */
+            /* flex-wrap: wrap; */
+            /* align-content设置侧轴上子元素的排列方式（多行，对于单行的元素排列是没有效果的） */
+            /* align-content: space-between; */
+            /* 对比（1）align-items以及（2）align-content的区别：单行找1，多行找2，1上对齐，下对齐，居中和拉伸。2.上对齐，下对齐，居中拉伸，平均分配剩余空间 */
+            /* 对于设置主轴方向和是否换行（换列），可以进行简写 */
+            /* flex-flow: column wrap; */
+        }
+
+        span {
+            height: 100px;
+            width: 100px;
+            /* background: #000; */
+        }
+
+        .q {
+            background-color: blue;
+            /* flex: 3; */
+        }
+
+        .w {
+            background-color: red;
+            flex: 1;
+        }
+
+        .e {
+            background-color: white;
+        }
+
+        /* .r {
+            background-color: yellow;
+        }
+
+        .t {
+            background-color: green;
+        }
+
+        .y {
+            background-color: gray;
+        }
+
+        .u {
+            background-color: purple;
+        } */
+    </style>
+</head>
+
+<body>
+    <div>
+        <span class="q"></span>
+        <span class="w"></span>
+        <span class="e"></span>
+        <!-- <span class="r"></span>
+        <span class="t"></span>
+        <span class="y"></span>
+        <span class="u"></span> -->
+    </div>
+</body>
+
+</html>

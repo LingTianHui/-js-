@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function fn() {
+        var a = 10;
+        return function () {
+            a++;
+            return console.log(a);
+
+        };
+    }
+
+    //访问 局部变量 
+    var f = fn();
+    f();
+    f();
+    // 如果 return a ; 就是延长局部变量的声明周期
+    function demo() {
+        var name = "cc";
+        var age = 18;
+
+        return function () {
+
+            return {
+                getName: function () {
+
+                    return name;
+                },
+                setName: function (newName) {
+                    if (newName) {
+                        name = newName;
+                    }
+
+                    return name;
+                },
+                getAge: function () {
+                    return age;
+                },
+                setAge: function (newAge) {
+                    if (newAge < 0) {
+                        newAge = 0;
+                    }
+
+                    return (age = newAge);
+                }
+            }
+        }
+    }
+    demo()
+    var f = demo()
+    var g = f()
+    let h = g.setName('xl')
+    let j = g.getName()
+    console.log(j)
+
+    //惰性函数: 做一次性初始化的操作
+    function foo() {
+        //初始化操作
+        console.log("foo");
+        //更新函数的执行内容，更新函数体
+        foo = function () {
+            console.log("oo-foo");
+
+        }
+
+    }
+
+    foo();
+    foo();
+    // 第一个小括号里面的是形参
+    (function (window) {
+        var name_cc = "测试";
+        // 向window这个对象中追加属性
+        window.name_cc = name_cc;
+        console.log(window);
+        // 第二个小括号里面的是实参
+    })(window);
+
+    console.log(name_cc);
+
+    //以下也是立即执行函数，但是可以看到与一般的立即执行函数有所不同，实际上立即数执行函数有非常多的写法，例如下文所示的在function关键字前添加一元运算符，也可以提醒系统此为立即执行函数，如果不加，实际上就是没有调用的普通函数
+    +function () {
+        console.log("1");
+
+    }();
+
+    //匿名函数
+    -function () {
+        console.log("2");
+    }();
+
+
+    //匿名函数
+    !function () {
+        console.log("3");
+    }();
+
+
+
+
+</script>
+
+</html>

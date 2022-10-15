@@ -1,0 +1,347 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f3f5f7;
+}
+
+/* 头部区域CSS代码 */
+a {
+    text-decoration: none;
+    /* display: block; */
+
+}
+
+.clearfix:before,.clearfix:after {
+    content:"";
+    display:table; 
+}
+ .clearfix:after {
+    clear:both;
+}
+.clearfix {
+     *zoom:1;
+}   
+
+.dingbulan {
+    width: 1200px;
+    height: 100px;
+    margin: 10px auto;
+    background-color: #ffffff
+}
+
+.dingbulan a {
+    display: block;
+}
+
+.dingbulan a:hover {
+    color: #00a4ff;
+    border-bottom: 1px solid #00a4ff;
+}
+
+li {
+    list-style: none;
+}
+
+.dingbulan .pic {
+    float: left;
+    /* width: 100px; */
+    height: 40px;
+    /* background-image: url(image/logo.png);用这行代码图片会重复 */
+    margin-top: 30px;
+}
+
+img {
+    height: 40px;
+ }
+
+.dingbulan ul li {
+    float: left;
+    margin-left: 60px;
+    line-height: 100px;
+    font-size: 18px;
+}
+
+.dingbulan .text {
+    float: left;
+    width: 360px;
+    height: 40px;
+    line-height: 100px;
+    margin-left: 50px;
+    color: bisque;
+    margin-top: 30px;
+    border-right: 0px;
+    
+}
+
+.dingbulan .btn {
+    width: 44px;
+    height: 44px;
+    margin-top: 30px;
+    background-image: url(image/btn.png);
+}
+
+.dingbulan .userpic {
+    line-height: 100px;
+    margin-left: 80px;
+}
+
+.dingbulan .user {
+    float: right;
+    display: block;
+    /* height: 100px; */
+    line-height: 100px;
+    font-size: 14px;
+    margin-right: 50px;
+}
+
+/* 版面区域CSS代码 */
+.banner {
+    height: 405px;
+    background-color: #1c036c;
+}
+
+.banner .bannerbody {
+    width: 1200px;
+    height: 405px;
+    background-image: url(image/banner2.png);
+    margin: 0 auto;
+}
+
+.banner .bannerbody .list ul {
+    float: left;
+}
+
+.banner .bannerbody .list li {
+    /* padding-left: 22px; */
+    height: 45px;
+    width: 190px;
+    line-height: 45px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: rgba(19, 1, 75, 0.4);
+    text-indent: 2em;
+}
+
+.banner .bannerbody .list a {
+    color: #fff;
+
+}
+
+.banner .bannerbody .list li span {
+    float: right;
+    padding-right: 22px;
+    color: #ffffff;
+}
+
+.banner .bannerbody .list li a:hover {
+    color: #00a4ff;
+}
+
+.banner .bannerbody .kcb {
+    margin-top: 50px;
+    float: right;
+    width: 230px;
+    height: 300px;
+}
+
+.banner .bannerbody .kcb .head {
+    float: right;
+    width: 100%;
+    line-height: 48px;
+    font-size: 18px;
+    height: 48px;
+    background-color: #9bceea;
+    color:#ffffff;
+    text-align: center;
+}
+
+.banner .bannerbody .kcb .body {
+    float: right;
+    width: 230px;
+    background-color: #fff;
+    /* text-align: center; */
+}
+
+.banner .bannerbody .kcb .body div {
+    /* margin: 20px 20px; */
+    margin-bottom: 10px;
+    margin-left: 20px;
+    height: 50px;
+    font-size: 18px;
+    border-bottom:1px solid #00a4ff;
+}
+
+.banner .bannerbody .kcb .body .diyige {
+    margin-top: 15px;
+}
+
+.banner .bannerbody .kcb .body div span {
+    font-size: 12px;
+    text-align: left;
+}
+
+.banner .bannerbody .kcb .footer {
+    float: right;
+    width: 230px;
+    height: 50px;
+    /* padding: 10px 20px; */
+    padding-top: 20px;
+    /* width: 200px; */
+    /* height: 40px; */
+    background-color: #fff;
+    text-align: center;
+    border-color: #00a4ff;
+}
+
+.jingpin {
+    margin: 0px auto;
+    margin-top: 10px;
+    width: 1200px;
+    height: 60px;
+    box-shadow: 0 2px 2px 2px rgba(0,0,0, 0.1)
+
+}
+
+.jingpin .title {
+    float: left;
+    color: #00a4ff;
+    line-height: 60px;
+    padding: 0px 20px;
+    font-size: 16px;
+}
+
+.jingpin ul li {
+    float: left;
+    /* line-height: 60px; */
+    padding: 0px 30px;
+    margin: 20px 0px;
+    font-size: 16px;
+    border-left: 1px solid #000;
+} 
+
+.jingpin ul li a {
+    color: #000;
+}
+
+.jingpin ul li a:hover {
+    color: #00a4ff
+}
+
+.jingpin h4 {
+    float: right;
+    color: #00a4ff;
+    line-height: 60px;
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+.jingpin2 {
+    margin: 10px auto;
+    width: 1200px;
+    height: 635px;
+}
+
+.jingpin2 .head h3 {
+    float: left;
+    height: 42px;
+    color: #494949;
+    font-weight:400;
+}
+
+.jingpin2 h5 a {
+    float: right;
+    font-size: 12px;
+    line-height: 42px;
+    color: #cfd0d1;
+}
+
+.jingpin2 ul li {
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.jingpin2 ul li div {
+    width: 230px;
+    height: 270px;
+    background-color: #fff;
+}
+
+.jingpin2 li img {
+width: 230px;
+height: 155px;
+}
+
+.jingpin2 ul li div h4 {
+    margin-top: 30px;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 0px 15px;
+    
+}
+.jingpin2 ul li div span {
+    font-size: 12px;
+    padding: 0px 15px;
+}
+
+.jingpin2 ul li div .jibie {
+color: coral;
+}
+
+.htmlfooterbg {
+    height: 420px;
+    background-color: #fff;
+}
+
+.htmlfooter {
+    height: 420px;
+    width: 1200px;
+    margin: 0px auto;
+    background: #fff;
+}
+
+.htmlfooter .footerleft {
+    float: left;
+}
+
+.htmlfooter .footerleft img {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.htmlfooter .footerleft h5 {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+.htmlfooter .footerleft .app {
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 20px;
+    border: 1px solid #00a4ff;
+    text-align: center;
+    color: #00a4ff;
+
+}
+
+.htmlfooter .footerright ul  {
+    float: right;
+    margin-top: 30px; ;
+    font-size: 12px;
+}
+
+.htmlfooter .footerright ul li {
+    margin: 10px 0px;
+}
+
+.footerrightmargin {
+    margin-right: 145px;
+}
+
+.big {
+    font-size: 16px;
+}

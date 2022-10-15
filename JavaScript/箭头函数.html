@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    function test(name) {
+        this.name = name;
+    }
+    test.prototype.print_name = function () {
+        console.log(this.name);
+    }
+    test.prototype.age = 1;
+    var t1 = new test('t1');
+    var t2 = new test('t2');
+    console.log(t1.age === t2.age); //true
+    t1.print_name()
+    t2.print_name()
+    console.log(t1.print_name === t2.print_name); //true
+</script>
+
+</html>
