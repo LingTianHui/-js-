@@ -21,8 +21,10 @@ fs.readFile(path.join(__dirname, '../素材/index.html'), 'utf8', function(err, 
 function resolveCSS(htmlStr) {
   // 3.2 使用正则提取需要的内容
   const r1 = regStyle.exec(htmlStr)
+  // console.log(r1)
   // 3.3 将提取出来的样式字符串，进行字符串的 replace 替换操作
   const newCSS = r1[0].replace('<style>', '').replace('</style>', '')
+  // console.log(newCSS)
   // 3.4 调用 fs.writeFile() 方法，将提取的样式，写入到 clock 目录中 index.css 的文件里面
   fs.writeFile(path.join(__dirname, './clock/index.css'), newCSS, function(err) {
     if (err) return console.log('写入 CSS 样式失败！' + err.message)
@@ -34,8 +36,10 @@ function resolveCSS(htmlStr) {
 function resolveJS(htmlStr) {
   // 4.2 通过正则，提取对应的 <script></script> 标签内容
   const r2 = regScript.exec(htmlStr)
+  // console.log(r2)
   // 4.3 将提取出来的内容，做进一步的处理
   const newJS = r2[0].replace('<script>', '').replace('</script>', '')
+  // console.log(newJS)
   // 4.4 将处理的结果，写入到 clock 目录中的 index.js 文件里面
   fs.writeFile(path.join(__dirname, './clock/index.js'), newJS, function(err) {
     if (err) return console.log('写入 JavaScript 脚本失败！' + err.message)
