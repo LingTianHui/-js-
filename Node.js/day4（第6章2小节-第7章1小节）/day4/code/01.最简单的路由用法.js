@@ -8,7 +8,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
   res.send('Post Request.')
 })
-
+// listen函数就是用来启动服务器
 app.listen(80, () => {
   console.log('http://127.0.0.1')
 })
