@@ -1,0 +1,52 @@
+html,body{
+  margin: 0;
+  padding: 0;
+}
+
+.layui-footer {
+  text-align: center;
+  font-size: 12px;
+}
+
+.iconfont {
+  margin-right: 10px;
+}
+
+iframe {
+  height: 100%;
+  width: 100%;
+}
+
+.layui-body {
+  /* 这一步的作用是为了使得首页的界面更加贴合，不是看起来非常奇怪 */
+  overflow: hidden;
+}
+.userinfo {
+  height: 60px;
+  line-height:60px;
+  text-align: center;
+  font-size: 12px;
+  /* 我们不希望文字被选中，所以有如下代码 */
+  user-select: none;
+}
+.layui-side-scroll .userinfo {
+  border-bottom: 1px solid #282b33;
+}
+.text-avatar {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-color: #009688;
+  border-radius: 50%;
+  line-height: 40px;
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  position: relative;
+  top: 4px;
+  margin-right: 10px;
+}
+.layui-nav-img {
+  width: 40px;
+  height: 40px;
+}

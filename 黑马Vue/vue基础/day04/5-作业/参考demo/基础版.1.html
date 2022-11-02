@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+
+    <section id="todoapp" class="todoapp">
+        <myheader @inpvalue="addTodo"></myheader>
+        <mylist @get-list="getList()" :todos="todos" @dbl-click="aaaa" @save-edit="saveEdit" :currentediting="currentEditing" @removetodo="removeTodo"></mylist>
+        <myfotter :leftcount="leftCount" @delete-all-done="removeAllDone"></myfotter>
+
+    </section>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+
+    <script>
+        axios.defaults.baseURL = 'http://localhost:3001/';
+        //   1、把header  部分提取出来 
+        var myheader = {
+                template: `
+            <header class="header">
+                <h1>todos</h1>
+                <input placeholder="What needs to be done?" @keyup.enter="addToParent" class="new-todo">
+            </header>
+            `,
+                methods: {
+                    //1.1  把用户输入的数据传递到父组件中去
+                    addToParent(event) {
+                        var todoText = event.target.value.trim()
+                        if (!todoText.length) {
+                            return
+                        }
+                        this.$emit("inpvalue", todoText)
+                    }
+                }
+            }
+            // 2.1  把 展示数据列表提取出来
+            // 2.2 把父组件中的todos 传递过来  子组件接收到父组件传递过来的数据 进行渲染
+        var mylist = {
+            props: ["todos", "currentediting"],
+            template: ` 
+            <section class="main">
+               <input v-model="toggleStat1" id="toggle-all" type="checkbox" class="toggle-all">
+                <label for="toggle-all">Mark all as complete</label>
+                <ul class="todo-list">
+                        <li v-for="(item, index) in todos" 
+                        v-bind:class="{completed: item.completed, editing: item === currentediting}">
+                           
+                            <div class="view">
+                                <input type="checkbox"   @click="getCheckboxStatus(item.id,$event)" class="toggle" :value="item.completed" v-model="item.completed">
+                                <label @dblclick="doubleMethods(item)">{{item.title}}</label>
+                                <button class="destroy" @click="removeTodoParent(item.id, $event)"></button>
+                            </div>
+                            <input class="edit"     @blur="saveEdit(item,  $event)" @keyup.enter="$event.target.blur"  :value="item.title" @keyup.esc="currentediting = null">
+                        </li>
+                </ul>
+            </section>
+            `,
+            methods: {
+                //  3.1 删除操作
+                //  3.2 把需要删除的id 传递给父组件过来
+                removeTodoParent(index) {
+                    this.$emit("removetodo", index)
+                },
+                saveEdit(item, event) {
+                    var editText = event.target.value.trim()
+                    this.$emit("save-edit", editText, item)
+                },
+                doubleMethods(item) {
+                    this.$emit("dbl-click", item)
+                },
+                getCheckboxStatus(id, e) {
+                    let status = e.target.checked;
+                  
+                    console.log(`setcheckboxstatus/${id}/${Number(status)}`)
+                    axios.get(`setcheckboxstatus/${id}/${Number(status)}`).then(res => {
+                        console.log(res)
+                    })
+                }
+            },
+            computed: {
+                toggleStat1: {
+                    get() {
+                        return this.todos.every(item => item.completed)
+                    },
+                    set(val) {
+                        axios.get(`all/${Number(val)}`).then(res => {
+                            this.$emit('get-list')
+                        })
+
+                    }
+                },
+                toggleStateBox: {
+                    get(event) {
+                        return ''
+                    },
+                    set(val) {
+
+
+                    }
+                }
+            },
+        }
+
+
+        var myfotter = {
+            props: ['leftcount'],
+            template: `
+            <footer class="footer">
+            <span class="todo-count"><strong>{{leftcount}}</strong> item left</span>
+            <button class="clear-completed" @click="deletecompleteAll">Clear completed</button>
+        </footer>
+            `,
+            methods: {
+                deletecompleteAll() {
+                    this.$emit("delete-all-done")
+
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el: "#todoapp",
+            data: {
+                currentEditing: null,
+                todos: []
+            },
+            mounted() {
+                this.getList()
+            },
+            methods: {
+                getList() {
+                    axios.get('list').then(res => {
+                        console.log(res.data)
+                        this.todos = res.data
+                    })
+                },
+                addTodo(todoText) {
+                    axios.post('add', {
+                            title: todoText,
+                        }).then(res => {
+                            this.getList()
+                        })
+                        // // 清空文本框
+                    event.target.value = ''
+                },
+                // 删除任务项
+                removeTodo(delIndex) {
+                    axios.delete(`list/${delIndex}`).then(res => {
+                        this.getList()
+                    })
+                },
+                // 保存编辑项
+                saveEdit(editText, item) {
+                   console.log(editText,'------editText----',item)
+                    axios.put(`list/${item.id}`, {
+
+                        title: editText,
+
+
+                    }).then(res => {
+                        console.log(res,'-----------')
+                        this.getList()
+                            // 3. 去除 editing 样式
+                        this.currentEditing = null
+                    })
+
+
+                },
+                // 删除所有已完成任务项
+                removeAllDone() {
+                    axios('deletecompeted').then(res => {
+                        console.log(res,'--deletecompeted--')
+                        this.getList()
+                    })
+
+                },
+                aaaa(item) {
+                    this.currentEditing = item
+                }
+            },
+            computed: {
+
+                leftCount: function() {
+                    return this.todos.filter(item => !item.completed).length
+                },
+
+            },
+            components: {
+                myheader,
+                mylist,
+                myfotter
+            }
+        })
+    </script>
+</body>
+
+</html>

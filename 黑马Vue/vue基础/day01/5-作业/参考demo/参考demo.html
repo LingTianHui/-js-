@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .vertical-tab {
+            width: 920px;
+            margin: 100px auto;
+        }
+        
+        .vertical-tab .nav {
+            list-style: none;
+            width: 200px;
+        }
+        
+        .vertical-tab .nav-tabs1 {
+            border-right: 3px solid #e7e7e7;
+        }
+        
+        .vertical-tab .nav-tabs2 {
+            border-left: 3px solid #e7e7e7;
+        }
+        
+        .vertical-tab .nav a {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            margin: 0 0 1px 0;
+            text-decoration: none;
+        }
+        
+        .vertical-tab .tab-content {
+            color: #555;
+            background-color: #fff;
+            font-size: 15px;
+            letter-spacing: 1px;
+            line-height: 23px;
+            padding: 10px 15px 10px 25px;
+            display: table-cell;
+            position: relative;
+        }
+        
+        .vertical-tab .nav-tabs1 {
+            float: left;
+        }
+        
+        .vertical-tab .tabs {
+            width: 500px;
+            box-sizing: border-box;
+            float: left;
+        }
+        
+        .vertical-tab .tab-content h3 {
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0 0 5px 0;
+        }
+        
+        .vertical-tab .nav-tabs2 {
+            float: right;
+        }
+        
+        .tab-content {
+            position: relative;
+        }
+        
+        .tab-content .tab-pane {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+        
+        .nav li.active a {
+            color: #198df8;
+            background: #fff;
+            border: none;
+        }
+        
+        .fade {
+            opacity: 0;
+            transition: all .3s linear;
+        }
+        
+        .fade.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="vertical-tab" id="app">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs1">
+            <li v-on:click='change(index,0)' :class='currentIndex==index?"active":""' v-if="index < list.length/2" v-for="(item, index) in list"><a href="#"> {{item.title}} </a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content tabs">
+            <div class="tab-pane  fade" :class='currentIndex==index?"active":""' :key='item.id' v-for='(item, index) in list'>
+                <h3>{{item.title}}</h3>
+                <p>{{item.content}}</p>
+            </div>
+
+        </div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs2">
+            <li v-on:click='change(index,1)' :class='currentIndex==index?"active":""' v-if="index >= list.length/2" v-for="(item, index) in list"><a href="#"> {{item.title}} </a></li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                currentIndex: 0, // 选项卡当前的索引
+                list: [{
+                    id: 1,
+                    title: 'Section 1',
+                    content: 'content1'
+                }, {
+                    id: 2,
+                    title: 'Section 2',
+                    content: 'content2'
+                }, {
+                    id: 3,
+                    title: 'Section 3',
+                    content: 'content3'
+                }, {
+                    id: 4,
+                    title: 'Section 4',
+                    content: 'content4'
+                }, {
+                    id: 5,
+                    title: 'Section 5',
+                    content: 'content5'
+                }, {
+                    id: 6,
+                    title: 'Section 6',
+                    content: 'content6'
+                }]
+            },
+            methods: {
+                change(index, flag) {
+                    if (flag) {
+                        console.log(index)
+                        this.currentIndex = index;
+                    } else {
+                        this.currentIndex = index;
+                    }
+
+                }
+            }
+
+        })
+    </script>
+</body>
