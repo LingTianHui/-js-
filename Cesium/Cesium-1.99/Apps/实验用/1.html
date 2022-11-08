@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hello 3D Earth</title>
+    <script src="../../Build/Cesium/Cesium.js"></script>
+    <link rel="stylesheet" href="../../Source/Widgets/widgets.css">
+    <style>
+        html,
+        body,
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="cesiumContainer"></div>
+    <script>
+        const viewer = new Cesium.Viewer('cesiumContainer', { terrainProvider: Cesium.createWorldTerrain() })
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ZTc3NDFkYS05YTY1LTQzYWMtOTNhZC0xODRhNWQ3ZGZmOWYiLCJpZCI6MTEzMzgxLCJpYXQiOjE2NjczOTc1ODl9.tvjxJOvM0sdbPVAvSEjYv3EX5BV3vUWPuFob9VST5qY';
+    </script>
+</body>
+
+</html>

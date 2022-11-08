@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width= device-width, initial-scale=1.0">
+    <link rel=" stylesheet" href="https://js.arcgis.com/4.16/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.16/init.js"></script>
+    <title>Document</title>
+    <style>
+        html,
+        body,
+        #map {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+<script>
+    require(["esri/Map", "esri/views/MapView"], function (Map, MapView) {
+        var map = new Map({
+            basemap: "streets"
+        });
+        var view = new MapView({
+            container: "map",
+            map: map,
+            zoom: 4,
+            center: [15, 65]
+        });
+    });
+</script>
+
+</html>

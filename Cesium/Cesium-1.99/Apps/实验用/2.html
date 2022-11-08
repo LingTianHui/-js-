@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <!-- Include the CesiumJS JavaScript and CSS files -->
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.99/Build/Cesium/Cesium.js"></script>
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.99/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+</head>
+<style type="text/css">
+    #toggle-building {
+        z-index: 1;
+        position: fixed;
+        top: 5px;
+        left: 5px;
+    }
+</style>
+
+<body>
+    <div id="cesiumContainer"></div>
+    <button id="toggle-building">Toggle new building</button>
+    <script>
+        // Your access token can be found at: https://cesium.com/ion/tokens.
+        // Replace `your_access_token` with your Cesium ion access token.
+
+        Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0ZTc3NDFkYS05YTY1LTQzYWMtOTNhZC0xODRhNWQ3ZGZmOWYiLCJpZCI6MTEzMzgxLCJpYXQiOjE2NjczOTc1ODl9.tvjxJOvM0sdbPVAvSEjYv3EX5BV3vUWPuFob9VST5qY';
+
+
+        // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID.
+        const viewer = new Cesium.Viewer('cesiumContainer', {
+            // 下面的代码是为让体现地形起伏的效果
+            terrainProvider: Cesium.createWorldTerrain()
+        });
+        //取消版权信息，让页面下方不再有两句小字
+        viewer._cesiumWidget._creditContainer.style.display = "none";
+
+
+        // 接下来的的代码是为了使其展现出飞行效果
+        // Add Cesium OSM Buildings, a global 3D buildings layer.
+
+        // Fly the camera to San Francisco at the given longitude, latitude, and height.
+        // viewer.camera.flyTo({
+        //     destination: Cesium.Cartesian3.fromDegrees(-122.4175, 37.655, 400),
+        //     orientation: {
+        //         heading: Cesium.Math.toRadians(0.0),
+        //         pitch: Cesium.Math.toRadians(-15.0),
+        //     }
+        // });
+
+
+        // 下面的代码让网页具有绘制点的功能
+        let point = viewer.entities.add({
+            name: "point",
+            position: new Cesium.Cartesian3.fromDegrees(120, 30, 50), // 点的经纬度坐标
+            point: {
+                show: true, //是否显示，默认显示
+                pixelSize: 15, //点的大小（像素），默认为1
+                heightReference: Cesium.HeightReference.NONE, //高程参考面：无
+                // heightReference: Cesium.HeightReference.CLAMP_TO_GROUND, //高程参考面：地表(设置后点会贴地)
+                color: Cesium.Color.RED, //颜色，默认为白色
+                outlineColor: Cesium.Color.BLUE, //轮廓线颜色，默认为黑色
+                outlineWidth: 1, // 轮廓线宽度（像素），默认为0
+                scaleByDistance: new Cesium.NearFarScalar(1.5e2, 2.0, 1.5e7, 0.5), //点的大小随视角的距离缩放，默认为空
+                translucencyByDistance: new Cesium.NearFarScalar(1.5e2, 1.0, 1.5e7, 0.2), //点的透明度随视角的距离变化，默认为空
+                // distanceDisplayCondition: new Cesium.DistanceDisplayCondition(100.0, 2000000.0), //点在该视角距离内可见，其他距离不可见，默认为空
+                disableDepthTestDistance: 1.5e2, //小于该数值后关闭深度检测，默认为空
+            }
+        })
+
+        viewer.flyTo(point);
+        const buildingsTileset = viewer.scene.primitives.add(Cesium.createOsmBuildings());
+        // Fly the camera to Denver, Colorado at the given longitude, latitude, and height.
+        viewer.camera.flyTo({
+            destination: Cesium.Cartesian3.fromDegrees(-104.9965, 39.74248, 4000),
+        });
+        // STEP 3 CODE
+        async function addBuildingGeoJSON() {
+            // Load the GeoJSON file from Cesium ion.记得替换自己数据的id
+            const geoJSONURL = await Cesium.IonResource.fromAssetId(1387352);
+            // Create the geometry from the GeoJSON, and clamp it to the ground.
+            const geoJSON = await Cesium.GeoJsonDataSource.load(geoJSONURL, { clampToGround: true });
+            // Add it to the scene.
+            const dataSource = await viewer.dataSources.add(geoJSON);
+            // By default, polygons in CesiumJS will be draped over all 3D content in the scene.
+            // Modify the polygons so that this draping only applies to the terrain, not 3D buildings.
+            for (const entity of dataSource.entities.values) {
+                entity.polygon.classificationType = Cesium.ClassificationType.TERRAIN;
+            }
+            // Move the camera so that the polygon is in view.
+            // viewer.flyTo(dataSource);
+        }
+        addBuildingGeoJSON();
+
+        // STEP 4 CODE
+        // Hide individual buildings in this area using 3D Tiles Styling language.
+        buildingsTileset.style = new Cesium.Cesium3DTileStyle({
+            // Create a style rule to control each building's "show" property.
+            show: {
+                conditions: [
+                    // Any building that has this elementId will have `show = false`.
+                    ['${elementId} === 332469316', false],
+                    ['${elementId} === 332469317', false],
+                    ['${elementId} === 235368665', false],
+                    ['${elementId} === 530288180', false],
+                    ['${elementId} === 530288179', false],
+                    // If a building does not have one of these elementIds, set `show = true`.
+                    [true, true]
+                ]
+            },
+            // Set the default color style for this particular 3D Tileset.
+            // For any building that has a `cesium#color` property, use that color, otherwise make it white.
+            color: "Boolean(${feature['cesium#color']}) ? color(${feature['cesium#color']}) : color('#ffffff')"
+        });
+        // STEP 6 CODE
+        // Add the 3D Tileset you created from your Cesium ion account.
+        const newBuildingTileset = viewer.scene.primitives.add(
+            new Cesium.Cesium3DTileset({
+                url: Cesium.IonResource.fromAssetId(1387360)
+            })
+        );
+        // Move the camera to the new building.
+        viewer.flyTo(newBuildingTileset);
+
+        // STEP 7 CODE
+        // Toggle the tileset's show property when the button is clicked.
+        document.querySelector('#toggle-building').onclick = function () {
+            newBuildingTileset.show = !newBuildingTileset.show;
+        };
+    </script>
+    </div>
+</body>
+
+</html>
