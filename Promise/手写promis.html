@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义promise函数</title>
+</head>
+
+<body>
+
+</body>
+<script src="./lib/Promise.js"></script>
+<script>
+    const p = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject(1)
+            // 下面这一句代码可以验证then之后的函数是异步完成函数
+            console.log('resolve函数已完成')
+        })
+    }, 0)
+    p.then(
+        value => {
+            console.log('onresolved1()', value)
+        },
+        reason => {
+            console.log('onrejected1()', reason)
+        }
+    )
+    p.then(
+        value => {
+            console.log('onresolved2()', value)
+        },
+        reason => {
+            console.log('onrejected2()', reason)
+        }
+    )
+</script>
+
+</html>
