@@ -29,6 +29,7 @@
 			}
 		},
 		methods: {
+			// 数据在哪，改变数据的方法就要定义在哪
 			//添加一个todo
 			addTodo(todoObj){
 				this.todos.unshift(todoObj)
@@ -36,11 +37,13 @@
 			//勾选or取消勾选一个todo
 			checkTodo(id){
 				this.todos.forEach((todo)=>{
+					// 意思为如果传回来的id值与已有数据的id值能够对应，那么就将对应的done值取反在赋值给原来的数据
 					if(todo.id === id) todo.done = !todo.done
 				})
 			},
 			//删除一个todo
 			deleteTodo(id){
+				// 数组的过滤语法，注意判断语句的书写，然后因为filter方法不会引起数据的重新渲染，所以要重新赋值给原数组，引起改变。
 				this.todos = this.todos.filter( todo => todo.id !== id )
 			},
 			//全选or取消全选

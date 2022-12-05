@@ -9,6 +9,7 @@
 		<!-- <Student @atguigu="getStudentName" @demo="m1"/> -->
 
 		<!-- 通过父组件给子组件绑定一个自定义事件实现：子给父传递数据（第二种写法，使用ref） -->
+		<!-- vue中默认将所有给组件绑定的事件视为自定义事件，即使使用原生事件名也不行，这里的click.native可以让vue执行相应的原生事件。 -->
 		<Student ref="student" @click.native="show"/>
 	</div>
 </template>

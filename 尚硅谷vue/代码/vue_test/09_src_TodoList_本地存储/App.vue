@@ -21,6 +21,7 @@
 		data() {
 			return {
 				//由于todos是MyHeader组件和MyFooter组件都在使用，所以放在App中（状态提升）
+				// 为了防止在一开始没有数据而导致数组长度为0报错，那么就要在这里加一个判断，如果没有数组长度这个属性，那么就赋值为空数组。
 				todos:JSON.parse(localStorage.getItem('todos')) || []
 			}
 		},

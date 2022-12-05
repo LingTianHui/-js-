@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- 最常用的传递数据的方法 -->
 		<Student name="李四" sex="女" :age="18"/>
 	</div>
 </template>

@@ -13,7 +13,7 @@
 <script>
 	export default {
 		name:'MyItem',
-		//声明接收todo、checkTodo、deleteTodo
+		//声明接收todo、checkTodo、deleteTodo，在这里两个函数是app经过myitem的父组件mylist传过来的，相当于传递了两次
 		props:['todo','checkTodo','deleteTodo'],
 		methods: {
 			//勾选or取消勾选
@@ -23,6 +23,7 @@
 			},
 			//删除
 			handleDelete(id){
+				// 会弹出一个提示框，根据用户点击的结果决定是否继续向下执行语句
 				if(confirm('确定删除吗？')){
 					//通知App组件将对应的todo对象删除
 					this.deleteTodo(id)
